@@ -2,7 +2,7 @@ tabuleiro = [["X", " ", " ", " ", " ", " ", " "],
              ["X", " ", " ", " ", " ", " ", " "],
              ["X", " ", " ", " ", " ", " ", " "],
              ["X", " ", " ", " ", " ", " ", " "],
-             ["X", " ", " ", " ", " ", " ", " "],
+             ["X", " ", " ", " ", " ", " ", "X"],
              ["O", "O", " ", " ", " ", " ", "X"]]
 
 def imprimir_tabuleiro(tabuleiro):
@@ -23,10 +23,10 @@ def imprimir_tabuleiro(tabuleiro):
 def jogada(tab,peca):
     print(f'Turno das peças {peca} .')
     play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
-    invalido = True
 
+    invalido = True
     while invalido == True:
-        if play < 1 or play > 7:
+        if play < 0 or play > 6:
             print("Essa coluna não existe!")
             play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
         else:
@@ -36,11 +36,17 @@ def jogada(tab,peca):
             else:
                 invalido = False
 
-    for i in tab:
-        c = tab.index(i)-1
+    """ for i in range(len(tab)-1, -1, -1):
+        if tab[i][play] == " ":
+            tab[i][play] = peca
+            break """
+
+    posicao = None
+    for c in range(len(tab)):
         if tab[c][play] == " ":
-            tab[c][play] = peca
-            break
+            posicao = c
+
+    tab[posicao][play] = peca
 
     imprimir_tabuleiro(tab)
 
