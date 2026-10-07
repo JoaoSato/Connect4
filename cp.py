@@ -1,10 +1,10 @@
 tabuleiro = [
     [" ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", "O", " "],
-    [" ", " ", " ", " ", "O", " ", " "],
-    [" ", " ", " ", "O", " ", " ", " "],
-    [" ", "O", " ", " ", " ", " ", " "]
+    [" ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " "]
 ]
 
 def imprimir_tabuleiro(tabuleiro):
@@ -24,17 +24,19 @@ def imprimir_tabuleiro(tabuleiro):
 
 def jogada(tab,peca):
     print(f'Turno das peças {peca}.')
-    play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
-
     invalido = True
     while invalido == True:
+        try:
+            play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
+        except ValueError:
+            print("Digite um número inteiro de 1 a 7!")
+            continue
+
         if play < 0 or play > 6:
             print("Essa coluna não existe!")
-            play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
         else:
-            if tab[1][play] != " ":
+            if tab[0][play] != " ":
                 print("Coluna cheia! Faça outra jogada!")
-                play = int(input("Digite onde jogar uma peça na coluna 1 a 7: "))-1
             else:
                 invalido = False
 
@@ -63,10 +65,10 @@ def verificar_vitoria_horizontal(tab, peca):
 
 def verificar_vitoria_vertical(tab, peca):
     for i in range(3):
-            for j in range(7):
-                if tab[i][j] == peca and tab[i+1][j] == peca and tab[i+2][j] == peca and tab[i+3][j] == peca:
-                    print(f'Vitória do {peca} :)')
-                    return True
+        for j in range(7):
+            if tab[i][j] == peca and tab[i+1][j] == peca and tab[i+2][j] == peca and tab[i+3][j] == peca:
+                print(f'Vitória do {peca} :)')
+                return True
     return False
 
 def verificar_vitoria_diagonal_direita(tab, peca):
@@ -85,26 +87,14 @@ def verificar_vitoria_diagonal_esquerda(tab, peca):
                 return True
     return False
 
-
-
-#Main
-peca = "O"
-imprimir_tabuleiro(tabuleiro)
-
-jogada(tabuleiro, peca)
-
-vit_horizontal = verificar_vitoria_horizontal(tabuleiro, peca)
-vit_vertical = verificar_vitoria_vertical(tabuleiro, peca)
-vit_diag_direita = verificar_vitoria_diagonal_direita(tabuleiro, peca)
-vit_diag_esquerda = verificar_vitoria_diagonal_esquerda(tabuleiro, peca)
-
-
 def gameplay(tab):
-    pecas = ["X", "O"]
+    peca = "O"
+    jogadas = 0
     vitoria = False
 
     while vitoria == False:
         jogada(tab, peca)
+        jogadas += 1
         vit_horizontal = verificar_vitoria_horizontal(tab, peca)
         vit_vertical = verificar_vitoria_vertical(tab, peca)
         vit_diag_direita = verificar_vitoria_diagonal_direita(tab, peca)
