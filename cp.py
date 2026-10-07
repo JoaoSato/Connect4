@@ -59,7 +59,6 @@ def verificar_vitoria_horizontal(tab, peca):
     for i in range(6):
         for j in range(4):
             if tab[i][j] == peca and tab[i][j+1] == peca and tab[i][j+2] == peca and tab[i][j+3] == peca:
-                print(f'Vitória do {peca} :)')
                 return True
     return False
 
@@ -67,7 +66,6 @@ def verificar_vitoria_vertical(tab, peca):
     for i in range(3):
         for j in range(7):
             if tab[i][j] == peca and tab[i+1][j] == peca and tab[i+2][j] == peca and tab[i+3][j] == peca:
-                print(f'Vitória do {peca} :)')
                 return True
     return False
 
@@ -75,7 +73,6 @@ def verificar_vitoria_diagonal_direita(tab, peca):
     for i in range(3):
         for j in range(4):
             if tab[i][j] == peca and tab[i+1][j+1] == peca and tab[i+2][j+2] == peca and tab[i+3][j+3] == peca:
-                print(f'Vitória do {peca} :)')
                 return True
     return False
 
@@ -83,7 +80,6 @@ def verificar_vitoria_diagonal_esquerda(tab, peca):
     for i in range(3):
         for j in range(3, 7):
             if tab[i][j] == peca and tab[i+1][j-1] == peca and tab[i+2][j-2] == peca and tab[i+3][j-3] == peca:
-                print(f'Vitória do {peca} :)')
                 return True
     return False
 
@@ -100,9 +96,8 @@ def gameplay(tab):
         vit_diag_direita = verificar_vitoria_diagonal_direita(tab, peca)
         vit_diag_esquerda = verificar_vitoria_diagonal_esquerda(tab, peca)
 
-        if (vit_horizontal or vit_vertical or
-            vit_diag_direita or vit_diag_esquerda):
-
+        if vit_horizontal or vit_vertical or vit_diag_direita or vit_diag_esquerda:
+            print(f'Vitória do {peca} :)')
             vitoria = True
 
         elif jogadas == 42:
