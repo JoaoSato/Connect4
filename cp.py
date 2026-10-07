@@ -1,10 +1,10 @@
 tabuleiro = [
-    ["O", " ", " ", " ", " ", " ", "O"],
-    [" ", "O", " ", " ", " ", " ", " "],
-    [" ", "O", " ", "O", "O", "O", " "],
-    [" ", " ", "O", "O", "O", " ", " "],
-    [" ", "O", " ", "O", " ", " ", " "],
-    ["O", "O", " ", " ", " ", " ", "O"]
+    [" ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", "O", " "],
+    [" ", " ", " ", " ", "O", " ", " "],
+    [" ", " ", " ", "O", " ", " ", " "],
+    [" ", "O", " ", " ", " ", " ", " "]
 ]
 
 def imprimir_tabuleiro(tabuleiro):
@@ -91,9 +91,40 @@ def verificar_vitoria_diagonal_esquerda(tab, peca):
 peca = "O"
 imprimir_tabuleiro(tabuleiro)
 
-""" jogada(tabuleiro, peca) """
+jogada(tabuleiro, peca)
 
 vit_horizontal = verificar_vitoria_horizontal(tabuleiro, peca)
 vit_vertical = verificar_vitoria_vertical(tabuleiro, peca)
 vit_diag_direita = verificar_vitoria_diagonal_direita(tabuleiro, peca)
 vit_diag_esquerda = verificar_vitoria_diagonal_esquerda(tabuleiro, peca)
+
+
+def gameplay(tab):
+    pecas = ["X", "O"]
+    vitoria = False
+
+    while vitoria == False:
+        jogada(tab, peca)
+        vit_horizontal = verificar_vitoria_horizontal(tab, peca)
+        vit_vertical = verificar_vitoria_vertical(tab, peca)
+        vit_diag_direita = verificar_vitoria_diagonal_direita(tab, peca)
+        vit_diag_esquerda = verificar_vitoria_diagonal_esquerda(tab, peca)
+
+        if (vit_horizontal or vit_vertical or
+            vit_diag_direita or vit_diag_esquerda):
+
+            vitoria = True
+
+        elif jogadas == 42:
+            print("Empate! O tabuleiro está cheio.")
+            vitoria = True
+
+        else:
+            if peca == "O":
+                peca = "X"
+            else:
+                peca = "O"
+
+# Main
+imprimir_tabuleiro(tabuleiro)
+gameplay(tabuleiro)
